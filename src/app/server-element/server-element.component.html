@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+    <div class="panel-heading">{{ name }}</div>
+    <div class="panel-body">
+        <ng-content></ng-content>   
+    </div>
+</div>
+
+
+
+<!-- ng-content is a directive used as a selector here and this serves as a hook which we can place in our component
+to mark place for angular where it should add ANY content it finds between the opening and closing 
+tag(<app-server-element></app-server-element>).  -->

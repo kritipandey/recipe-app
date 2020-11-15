@@ -1,0 +1,20 @@
+<ol>
+    <li>Add A button which says 'Display Details'</li>
+    <li>Add a paragraph with any content of your choice (e.g. 'Secret Password = tuna')</li>
+    <li>Toggle the displaying of that paragraph with the button created in the first step</li>
+    <li>Log all button clicks in an array and output that array below the secret paragraph (maybe log a timestamp or simply an incrementing number)</li>
+    <li>Starting at the 5th log item, give all future log items a blue background (via ngStyle) and white color (ngClass)</li>
+</ol>
+
+<!-- <button class='btn btn-primary' (click)="showSecretText = !showSecretText">Display Details</button> -->
+<button class='btn btn-primary' (click)='onLoggingDetails()'>Display Details</button>
+<p *ngIf="showSecretText">Secret Password = tuna</p>
+<p *ngFor='let logItem of log; let i = index'   
+[ngStyle] = "{backgroundColor: i >= 4? 'blue':'transparent'}"
+[ngClass] = "{logColor : i >= 4}">{{ logItem }}</p>
+
+
+
+<!-- we have defined "let i = index" because without it, the "new Date()" timestamp result is a string 
+     and string is always greater than 5 due to which background color condition was not satisfied and
+     was blue from the starting-->
