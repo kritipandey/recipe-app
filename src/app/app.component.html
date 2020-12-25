@@ -1,47 +1,8 @@
-<app-header (featureSelected)="onNavigate($event)"></app-header>
+<app-header></app-header>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <app-recipes *ngIf="loadedFeature === 'receipe'"></app-recipes>
-            <app-shopping-list *ngIf="loadedFeature !== 'receipe'"></app-shopping-list>            
+            <router-outlet></router-outlet>           
         </div> 
     </div>
 </div>
-
-<!--Directives-->
-<!-- <app-odd-even></app-odd-even> -->
-
-<!--Services-->
-<!-- <app-services-start></app-services-start>
-
-<app-active-inactive-service></app-active-inactive-service> -->
-
-
-
-
-<!-- <div class="container">
-    <app-cockpit 
-    (serverCreated)="onServerAdded($event)"
-    (bpCreated)="onBlueprintAdded($event)"></app-cockpit>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-primary" (click)="OnChangeFirst()">Change First element</button>
-            <span>&nbsp;</span>
-            <button class="btn btn-danger" (click)="OnDestroyFirst()">Destroy First element</button>
-            <p></p>
-            <app-server-element *ngFor="let serverElement of serverElements" 
-            [srvElement]="serverElement"
-            [name]="serverElement.name"
-            >
-            <p>
-                <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
-                <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
-            </p>            
-            </app-server-element>
-        </div>
-    </div>
-</div>   -->
-
-<!-- Here we are adding <p></p> tag content via "ng-content" hook b/w opening & closing tag therefore it will be
-projected into our component(server-element-component.html)-->

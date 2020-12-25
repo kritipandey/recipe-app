@@ -1,27 +1,22 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
 
 @Injectable()
 export class RecipeService {
-    recipeSelected = new EventEmitter<Recipe>();
+    recipeChanged = new Subject<Recipe[]>();
 
     private recipes: Recipe[] =  [
         new Recipe('Peppy Paneer', 
-        'Paneer with crisp capsicum and spicy red pepper.', 
-        'https://www.dominos.co.in/files/items/Peppy_Paneer.jpg',
+        'Paneer with crisp capsicum and spicy red pepper.',
+        // 'https://www.dominos.co.in/files/items/Peppy_Paneer.jpg',
+        '../assets/Peppy_Paneer.jpg',
         [
-            new Ingredient ('Paneer', 12),
-            new Ingredient ('Capsicum', 1)
-        ]),
-        new Recipe('Pani Puri', 
-        'Panipuri or Golgappa - quite a mouthful!', 
-        'https://st2.depositphotos.com/5653638/11508/i/950/depositphotos_115083696-stock-photo-pani-puri-or-panipuri-golgappe.jpg',
-        [
-            new Ingredient ('Puri', 10),
-            new Ingredient ('Kala chana', 15)
-        ])
+            new Ingredient ('Capsicum', 1),
+            new Ingredient ('Paneer Cubes', 12)
+        ]), 
     ];
 
     constructor(private sLService: ShoppingListService){}
@@ -32,7 +27,31 @@ export class RecipeService {
         return this.recipes.slice();
     }
 
+    getRecipe(index: number){
+        return this.recipes[index]
+    }
+
     onAddIngredientsToSL(ingredients: Ingredient[]){
         this.sLService.addingIngredients(ingredients);
+    }
+
+    addNewRecipe(recipe: Recipe){
+        this.recipes.push(recipe);
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe){
+        this.recipes[index] = newRecipe;
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index: number){
+        this.recipes.splice(index, 1);
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    setFetchRecipes(recipes: Recipe[]){
+        this.recipes = recipes;                // this.recipes means above reccipes will override with the recipes we are getting.
+        this.recipeChanged.next(this.recipes.slice());
     }
 }

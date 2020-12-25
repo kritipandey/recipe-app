@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,38 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  loadedFeature = 'receipe';
+export class AppComponent implements OnInit{
 
-  onNavigate(feature:string){
-    this.loadedFeature = feature;
+  constructor(private authService: AuthService){}
 
+  // Data is there even after page reloads:
+  
+  ngOnInit(){
+    this.authService.onRetrevingUserData();
   }
-
-
-  // serverElements = [{type: 'server', name: 'Testserver', content: 'Just a test'}];
-
-  // onServerAdded(serverData: {serverName: string, serverContent:string}) {
-  //   this.serverElements.push({
-  //     type: 'server',
-  //     name: serverData.serverName,
-  //     content: serverData.serverContent
-  //   });
-  // }
-
-  // onBlueprintAdded(blueprintData: {serverName: string, serverContent:string}) {
-  //   this.serverElements.push({
-  //     type: 'blueprint',
-  //     name: blueprintData.serverName,
-  //     content: blueprintData.serverContent
-  //   });
-  // }
-
-  // OnChangeFirst(){
-  //   this.serverElements[2].name = "Changed!";
-  // }
-
-  // OnDestroyFirst(){
-  //   this.serverElements.splice(0,1);   // It will destroy array element 0,1,2
-  // }
 }
